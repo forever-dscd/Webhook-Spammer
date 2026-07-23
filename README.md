@@ -14,7 +14,7 @@ Un outil en ligne de commande pour envoyer, tester et gérer des webhooks Discor
 
 | # | Fonctionnalité | Description |
 |---|----------------|-------------|
-| 01 | **Boucle de Spam** | Envoi rapide de messages avec un délai par défaut de 0.01s (~100 msg/s) |
+| 01 | **Spam** | Envoi rapide de messages avec un délai par défaut de 0.01s (~100 msg/s) |
 | 02 | **Envoi Unique** | Envoyer un message personnalisé (avec nom d'utilisateur optionnel) |
 | 03 | **Envoi Multiple** | Envoyer N messages avec un délai configurable |
 | 04 | **Infos Webhook** | Récupérer et afficher les métadonnées (ID, nom, salon, serveur, token) |
@@ -36,7 +36,7 @@ Un outil en ligne de commande pour envoyer, tester et gérer des webhooks Discor
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃                                           MENU                                           ┃
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
-┃ [01] Boucle de Spam                                                                      ┃
+┃ [01] Spam                                                                                ┃
 ┃ [02] Envoi Unique                                                                        ┃
 ┃ [03] Envoi Multiple                                                                      ┃
 ┃ [04] Infos Webhook                                                                       ┃
