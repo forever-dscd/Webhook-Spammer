@@ -65,7 +65,7 @@ cd webhook-spammer
 pip install -r requirements.txt
 
 # Lancer
-python webhook-spammer.py
+py webhook-spammer.py
 ```
 
 ### Windows (en un clic)
