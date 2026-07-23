@@ -58,16 +58,7 @@ def show_banner(c=sv1):
     for l in B:
         print(f"{c}{l}{rst}")
 
-def shimmer():
-    shades = [236,240,244,249,254,255,254,249,244,240,236]
-    for _ in range(2):
-        for s in shades:
-            sys.stdout.write("\033[H")
-            for l in B:
-                sys.stdout.write(f"\033[38;5;{s}m{l}{rst}\n")
-            time.sleep(0.06)
-    sys.stdout.write("\033[H")
-    show_banner()
+# ─── PLUS D'ANIMATION SHIMMER — juste le banner statique ──
 
 # ─── STATS ───────────────────────────────────────────────────
 S = {"sent":0,"ok":0,"fail":0,"total":0}
@@ -150,23 +141,25 @@ def act_spam():
     print(f"  {'━' * 60}")
     url = input(f"  {sv4}[{sv1}?{sv4}]{rst} URL: {sv3}->{rst} ").strip()
     if not url or not parse_webhook(url)[0]:
-        print(f"  {red}[!] Invalid URL{rst}"); return
+        return  # SILENT — pas de message d'erreur
     msg = input(f"  {sv4}[{sv1}?{sv4}]{rst} Message: {sv3}->{rst} ").strip()
-    if not msg: print(f"  {red}[!] Empty{rst}"); return
+    if not msg: return
     d = 0.01
     dd = input(f"  {sv4}[{sv1}?{sv4}]{rst} Delay (0.01): {sv3}->{rst} ").strip()
     if dd:
         try: d = float(dd)
         except: pass
-    print(f"  {yel}[!] Spamming...{rst}")
     ctr = 0
     try:
         while True:
             ctr+=1; S["sent"]+=1; S["total"]+=1
             c,_ = webhook_send(url,msg)
-            if c in (200,204): S["ok"]+=1; s=f"{gre}OK{rst}"
-            else: S["fail"]+=1; s=f"{red}FAIL{rst}"
-            print(f"  {sv4}[{sv1}{ctr}{sv4}]{rst} {s}  {sv5}{datetime.now().strftime('%H:%M:%S')}{rst}")
+            if c in (200,204):
+                S["ok"]+=1
+                print(f"  {sv4}[{sv1}{ctr}{sv4}]{rst} {gre}OK{rst}  {sv5}{datetime.now().strftime('%H:%M:%S')}{rst}")
+            else:
+                S["fail"]+=1
+                # FAIL masqué — aucune sortie
             time.sleep(d)
     except KeyboardInterrupt:
         print(f"\n  {yel}[!] Stopped ({ctr} msgs){rst}")
@@ -177,14 +170,17 @@ def act_single():
     print(f"  {'━' * 60}")
     url = input(f"  {sv4}[{sv1}?{sv4}]{rst} URL: {sv3}->{rst} ").strip()
     if not url or not parse_webhook(url)[0]:
-        print(f"  {red}[!] Invalid URL{rst}"); return
+        return
     msg = input(f"  {sv4}[{sv1}?{sv4}]{rst} Message: {sv3}->{rst} ").strip()
-    if not msg: print(f"  {red}[!] Empty{rst}"); return
+    if not msg: return
     un = input(f"  {sv4}[{sv1}?{sv4}]{rst} Username: {sv3}->{rst} ").strip() or None
     S["sent"]+=1; S["total"]+=1
     c,r = webhook_send(url,msg,un)
-    if c in (200,204): S["ok"]+=1; print(f"  {gre}[+] Sent ({c}){rst}")
-    else: S["fail"]+=1; print(f"  {red}[X] Fail {c}{rst}")
+    if c in (200,204):
+        S["ok"]+=1
+        print(f"  {gre}[+] Sent ({c}){rst}")
+    else:
+        S["fail"]+=1  # rien n'est affiché
 
 def act_multi():
     print(f"\n  {'━' * 60}")
@@ -192,11 +188,11 @@ def act_multi():
     print(f"  {'━' * 60}")
     url = input(f"  {sv4}[{sv1}?{sv4}]{rst} URL: {sv3}->{rst} ").strip()
     if not url or not parse_webhook(url)[0]:
-        print(f"  {red}[!] Invalid URL{rst}"); return
+        return
     try: n = int(input(f"  {sv4}[{sv1}?{sv4}]{rst} Count: {sv3}->{rst} ").strip())
-    except: print(f"  {red}[!] Invalid number{rst}"); return
+    except: return
     msg = input(f"  {sv4}[{sv1}?{sv4}]{rst} Message: {sv3}->{rst} ").strip()
-    if not msg: print(f"  {red}[!] Empty{rst}"); return
+    if not msg: return
     d = 0.5
     dd = input(f"  {sv4}[{sv1}?{sv4}]{rst} Delay (0.5): {sv3}->{rst} ").strip()
     if dd:
@@ -205,8 +201,11 @@ def act_multi():
     for i in range(1,n+1):
         S["sent"]+=1; S["total"]+=1
         c,_ = webhook_send(url,msg)
-        if c in (200,204): S["ok"]+=1; print(f"  {gre}[{i}/{n}] OK{rst}  {sv5}({d}s){rst}")
-        else: S["fail"]+=1; print(f"  {red}[{i}/{n}] FAIL {c}{rst}  {sv5}({d}s){rst}")
+        if c in (200,204):
+            S["ok"]+=1
+            print(f"  {gre}[{i}/{n}] OK{rst}  {sv5}({d}s){rst}")
+        else:
+            S["fail"]+=1  # FAIL masqué
         time.sleep(d)
     print(f"  {sv2}Done.{rst}")
 
@@ -215,10 +214,9 @@ def act_info():
     print(f"  {bld}{sv1}WEBHOOK INFO{rst}")
     print(f"  {'━' * 60}")
     url = input(f"  {sv4}[{sv1}?{sv4}]{rst} URL: {sv3}->{rst} ").strip()
-    if not url: print(f"  {red}[!] No URL{rst}"); return
+    if not url: return
     wid, wt = parse_webhook(url)
-    if not wid: print(f"  {red}[!] Invalid URL{rst}"); return
-    print(f"  {sv5}Fetching...{rst}")
+    if not wid: return
     c,d = webhook_info(url)
     if c == 200:
         print(f"\n  {'━'*60}")
@@ -227,7 +225,7 @@ def act_info():
         print(f"  {sv4}Token{':'*9}{sv1}{wt}{rst}")
         if d.get('avatar'): print(f"  {sv4}avatar{':'*8}{sv1}{d['avatar']}{rst}")
         print(f"  {'━'*60}")
-    else: print(f"  {red}[!] Fail {c}{rst}")
+    # FAIL silencieux
 
 def act_del():
     print(f"\n  {'━' * 60}")
@@ -235,12 +233,13 @@ def act_del():
     print(f"  {'━' * 60}")
     url = input(f"  {sv4}[{sv1}?{sv4}]{rst} URL: {sv3}->{rst} ").strip()
     if not url or not parse_webhook(url)[0]:
-        print(f"  {red}[!] Invalid URL{rst}"); return
+        return
     cf = input(f"  {yel}[!] Confirm? (y/N): {rst}").strip().lower()
-    if cf != "y": print(f"  {sv5}[i] Cancelled{rst}"); return
-    print(f"  {sv5}Deleting...{rst}")
+    if cf != "y": return
     c,_ = webhook_delete(url)
-    print(f"  {gre}[+] Deleted!{rst}" if c == 204 else f"  {red}[X] Fail {c}{rst}")
+    if c == 204:
+        print(f"  {gre}[+] Deleted!{rst}")
+    # FAIL masqué
 
 def act_clr():
     for k in S: S[k]=0
@@ -248,11 +247,13 @@ def act_clr():
 
 # ─── MAIN ────────────────────────────────────────────────────
 def main():
+    # Vérification internet silencieuse — pas de message d'erreur affiché
     try: requests.get("https://discord.com", timeout=5)
-    except: print(f"{red}[!] No internet{rst}"); pause(); return
+    except: pass
 
     sys.stdout.write("\033[?25l")
-    shimmer()
+    # ─── AFFICHE UNIQUEMENT LE ASCII ART AU LANCEMENT ───
+    show_banner()
     sys.stdout.write("\033[?25h")
 
     while True:
@@ -275,8 +276,7 @@ def main():
         elif ch in ("06","6"):     act_clr()
         elif ch in ("07","7","exit","quit","q"):
             print(f"\n  {sv2}Bye.{rst}"); break
-        else:
-            print(f"  {red}[!] Invalid: {ch}{rst}")
+        # Option invalide → rien n'est affiché non plus (silencieux)
         pause()
 
 if __name__ == "__main__":
