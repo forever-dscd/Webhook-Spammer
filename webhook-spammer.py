@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 import os, sys, re, time, requests
 from datetime import datetime
 
@@ -16,7 +14,6 @@ def resize_con(w, h):
         try: os.system(f"mode con: cols={w} lines={h}")
         except: pass
 
-# ─── COULEURS ────────────────────────────────────────────────
 sv1 = "\033[38;5;255m"
 sv2 = "\033[38;5;252m"
 sv3 = "\033[38;5;250m"
@@ -28,13 +25,11 @@ yel = "\033[93m"
 rst = "\033[0m"
 bld = "\033[1m"
 
-# ─── REGEX ANSI ─────────────────────────────────────────────
 re_a = re.compile(r'\033\[[0-9;]*[mHl]')
 
 def strip_ansi(s):
     return re_a.sub('', s)
 
-# ─── BANNIERE ────────────────────────────────────────────────
 B = [
     "█     █░▓█████  ▄▄▄▄    ██░ ██  ▒█████   ▒█████   ██ ▄█▀     ██████  ██▓███   ▄▄▄       ███▄ ▄███▓",
     "▓█░ █ ░█░▓█   ▀ ▓█████▄ ▓██░ ██▒▒██▒  ██▒▒██▒  ██▒ ██▄█▒    ▒██    ▒ ▓██░  ██▒▒████▄    ▓██▒▀█▀ ██▒",
@@ -54,12 +49,8 @@ def show_banner(c=sv1):
     for l in B:
         print(f"{c}{l}{rst}")
 
-# ─── PLUS D'ANIMATION SHIMMER — juste le banner statique ──
-
-# ─── STATS ───────────────────────────────────────────────────
 S = {"sent":0,"ok":0,"fail":0,"total":0}
 
-# ─── BOITES ──────────────────────────────────────────────────
 W = 100
 HW = W - 4
 
@@ -102,7 +93,6 @@ def box_menu():
 def prompt():
     return input(f"\n  {sv4}[{sv1}{bld}Webhook-Spammer{rst}{sv4}]{rst} {sv3}->{rst} ").strip()
 
-# ─── WEBHOOK API ─────────────────────────────────────────────
 def parse_webhook(url):
     m = re.search(r"discord(?:app)?\.com/api/webhooks/(\d+)/([A-Za-z0-9_-]+)", url.strip())
     return (m.group(1), m.group(2)) if m else (None, None)
@@ -130,14 +120,13 @@ def webhook_delete(u):
 def pause():
     input(f"\n  {sv5}Press Enter...{rst}")
 
-# ─── ACTIONS ─────────────────────────────────────────────────
 def act_spam():
     print(f"\n  {'━' * 60}")
     print(f"  {bld}{sv1}SPAM LOOP  {yel}[Ctrl+C]{rst}")
     print(f"  {'━' * 60}")
     url = input(f"  {sv4}[{sv1}?{sv4}]{rst} URL: {sv3}->{rst} ").strip()
     if not url or not parse_webhook(url)[0]:
-        return  # SILENT — pas de message d'erreur
+        return
     msg = input(f"  {sv4}[{sv1}?{sv4}]{rst} Message: {sv3}->{rst} ").strip()
     if not msg: return
     d = 0.01
@@ -155,7 +144,6 @@ def act_spam():
                 print(f"  {sv4}[{sv1}{ctr}{sv4}]{rst} {gre}OK{rst}  {sv5}{datetime.now().strftime('%H:%M:%S')}{rst}")
             else:
                 S["fail"]+=1
-                # FAIL masqué — aucune sortie
             time.sleep(d)
     except KeyboardInterrupt:
         print(f"\n  {yel}[!] Stopped ({ctr} msgs){rst}")
@@ -176,7 +164,7 @@ def act_single():
         S["ok"]+=1
         print(f"  {gre}[+] Sent ({c}){rst}")
     else:
-        S["fail"]+=1  # rien n'est affiché
+        S["fail"]+=1
 
 def act_multi():
     print(f"\n  {'━' * 60}")
@@ -201,7 +189,7 @@ def act_multi():
             S["ok"]+=1
             print(f"  {gre}[{i}/{n}] OK{rst}  {sv5}({d}s){rst}")
         else:
-            S["fail"]+=1  # FAIL masqué
+            S["fail"]+=1
         time.sleep(d)
     print(f"  {sv2}Done.{rst}")
 
@@ -221,7 +209,6 @@ def act_info():
         print(f"  {sv4}Token{':'*9}{sv1}{wt}{rst}")
         if d.get('avatar'): print(f"  {sv4}avatar{':'*8}{sv1}{d['avatar']}{rst}")
         print(f"  {'━'*60}")
-    # FAIL silencieux
 
 def act_del():
     print(f"\n  {'━' * 60}")
@@ -235,20 +222,16 @@ def act_del():
     c,_ = webhook_delete(url)
     if c == 204:
         print(f"  {gre}[+] Deleted!{rst}")
-    # FAIL masqué
 
 def act_clr():
     for k in S: S[k]=0
     print(f"  {gre}[+] Cleared{rst}")
 
-# ─── MAIN ────────────────────────────────────────────────────
 def main():
-    # Vérification internet silencieuse — pas de message d'erreur affiché
     try: requests.get("https://discord.com", timeout=5)
     except: pass
 
     sys.stdout.write("\033[?25l")
-    # ─── AFFICHE UNIQUEMENT LE ASCII ART AU LANCEMENT ───
     show_banner()
     sys.stdout.write("\033[?25h")
 
@@ -272,7 +255,6 @@ def main():
         elif ch in ("06","6"):     act_clr()
         elif ch in ("07","7","exit","quit","q"):
             print(f"\n  {sv2}Bye.{rst}"); break
-        # Option invalide → rien n'est affiché non plus (silencieux)
         pause()
 
 if __name__ == "__main__":
