@@ -58,7 +58,7 @@ Un outil en ligne de commande pour envoyer, tester et gérer des webhooks Discor
 
 ```bash
 # Cloner le dépôt
-git clone [https://github.com/votre-nom-utilisateur/webhook-spammer.git](https://github.com/votre-nom-utilisateur/webhook-spammer.git)
+git clone https://github.com/forever-dscd/Webhook-Spammer.git
 cd webhook-spammer
 
 # Installer les dépendances
