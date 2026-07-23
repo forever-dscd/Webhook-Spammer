@@ -7,5 +7,5 @@ if not exist "%cd%\venv" (
     echo Installing dependencies...
     pip install -r requirements.txt --quiet
 )
-python webhook-spammer.py
+py webhook-spammer.py
 pause
