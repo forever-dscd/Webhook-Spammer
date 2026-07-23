@@ -4,93 +4,93 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Discord](https://img.shields.io/badge/Discord-Webhook-5865F2)
 
-A sleek terminal-based tool for sending, testing, and managing Discord webhooks — built for penetration testers and security researchers.
+Un outil en ligne de commande pour envoyer, tester et gérer des webhooks Discord — conçu pour les tests d'intrusion et la recherche en sécurité.
 
-> ⚠️ **Educational purposes only.** Only use on webhooks you own or have explicit permission to test.
-
----
-
-## ✨ Features
-
-| # | Feature | Description |
-|---|---------|-------------|
-| 01 | **Spam Loop** | Rapid-fire messages at 0.01s default delay (~100 msg/s) |
-| 02 | **Send Single** | Send one custom message (with optional username) |
-| 03 | **Send Multiple** | Send N messages with configurable delay |
-| 04 | **Webhook Info** | Fetch and display webhook metadata (ID, name, channel, guild, token) |
-| 05 | **Delete Webhook** | Permanently remove a webhook (irreversible — confirmation required) |
-| 06 | **Clear Stats** | Reset session counters |
-| 07 | **Exit** | Quit the application |
+> ⚠️ **À des fins éducatives uniquement.** À utiliser uniquement sur des webhooks dont vous êtes propriétaire ou sur lesquels vous disposez d'une autorisation explicite de test.
 
 ---
 
-## 🖥️ Preview
+## ✨ Fonctionnalités
+
+| # | Fonctionnalité | Description |
+|---|----------------|-------------|
+| 01 | **Boucle de Spam** | Envoi rapide de messages avec un délai par défaut de 0.01s (~100 msg/s) |
+| 02 | **Envoi Unique** | Envoyer un message personnalisé (avec nom d'utilisateur optionnel) |
+| 03 | **Envoi Multiple** | Envoyer N messages avec un délai configurable |
+| 04 | **Infos Webhook** | Récupérer et afficher les métadonnées (ID, nom, salon, serveur, token) |
+| 05 | **Supprimer Webhook** | Supprimer définitivement un webhook (irréversible — confirmation requise) |
+| 06 | **Effacer Stats** | Réinitialiser les compteurs de session |
+| 07 | **Quitter** | Quitter l'application |
+
+---
+
+## 🖥️ Aperçu
 
 ```
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃                              WEBHOOK SPAMMER v1.0 │ Author: User │ 2026-07-23 14:30:00 ┃
+┃                              WEBHOOK SPAMMER v1.0 │ Auteur: User │ 2026-07-23 14:30:00 ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃                               Sent 0   Success 0   Failed 0   Total 0                    ┃
+┃                               Envoyés 0   Succès 0   Échecs 0   Total 0                  ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃                                           MENU                                           ┃
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
-┃ [01] Spam Loop                                                                           ┃
-┃ [02] Send Single                                                                         ┃
-┃ [03] Send Multiple                                                                       ┃
-┃ [04] Webhook Info                                                                        ┃
-┃ [05] Delete Webhook                                                                      ┃
-┃ [06] Clear Stats                                                                         ┃
-┃ [07] Exit                                                                                ┃
+┃ [01] Boucle de Spam                                                                      ┃
+┃ [02] Envoi Unique                                                                        ┃
+┃ [03] Envoi Multiple                                                                      ┃
+┃ [04] Infos Webhook                                                                       ┃
+┃ [05] Supprimer Webhook                                                                   ┃
+┃ [06] Effacer Stats                                                                       ┃
+┃ [07] Quitter                                                                             ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Démarrage Rapide
 
-### Prerequisites
+### Prérequis
 - Python 3.8+
-- Windows (primary target) / Linux / macOS
+- Windows (cible principale) / Linux / macOS
 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone [https://github.com/your-username/webhook-spammer.git](https://github.com/your-username/webhook-spammer.git)
+# Cloner le dépôt
+git clone [https://github.com/votre-nom-utilisateur/webhook-spammer.git](https://github.com/votre-nom-utilisateur/webhook-spammer.git)
 cd webhook-spammer
 
-# Install dependencies
+# Installer les dépendances
 pip install -r requirements.txt
 
-# Run
+# Lancer
 python webhook-spammer.py
 ```
 
-### Windows (one-click)
-Double-click `start.bat` — it will auto-install dependencies and launch.
+### Windows (en un clic)
+Double-cliquez sur `start.bat` — il installera automatiquement les dépendances et lancera l'application.
 
 ---
 
-## 📁 Project Structure
+## 📁 Structure du Projet
 
 ```text
 webhook-spammer/
-├── webhook-spammer.py   # Main application
-├── requirements.txt     # Python dependencies
-├── start.bat            # Windows launcher
-├── README.md            # This file
-├── LICENSE              # MIT License
-└── results/             # Session logs (auto-created)
+├── webhook-spammer.py   # Application principale
+├── requirements.txt     # Dépendances Python
+├── start.bat            # Lanceur Windows
+├── README.md            # Ce fichier
+├── LICENSE              # Licence MIT
+└── results/             # Journaux de session (créés automatiquement)
     └── session_2026-07-23.txt
 ```
 
 ---
 
-## 📊 Logging
+## 📊 Journalisation (Logging)
 
-Every operation is automatically logged to `results/session_YYYY-MM-DD.txt`:
+Chaque opération est automatiquement enregistrée dans `results/session_AAAA-MM-JJ.txt` :
 
 ```text
 ========== SESSION STARTED ==========
@@ -103,33 +103,27 @@ Every operation is automatically logged to `results/session_YYYY-MM-DD.txt`:
 
 ---
 
-## ⚡ Performance
+## ⚡ Performances
 
-- **Spam Loop default delay:** 0.01s (~100 messages/second theoretical)
-- Adjustable delay for rate-limit testing
-- Real-time counter with timestamps
-- `Ctrl+C` to stop any operation gracefully
-
----
-
-## 🔒 Rate Limiting
-
-Discord applies rate limits per webhook (typically 5 requests per 2 seconds). The tool respects Discord's rate-limiting responses. Use responsibly.
+- **Délai par défaut de la boucle de spam :** 0.01s (~100 messages/seconde théoriques)
+- Délai ajustable pour les tests de limite de débit (rate limit)
+- Compteur en temps réel avec horodatage
+- `Ctrl+C` pour arrêter toute opération en douceur
 
 ---
 
-## 📜 License
+## 🔒 Limite de Débit (Rate Limiting)
 
-MIT License — Free to use, modify, and distribute.
-
----
-
-## 🤝 Contributing
-
-Pull requests are welcome! For major changes, open an issue first.
+Discord applique des limites de débit par webhook (généralement 5 requêtes par tranche de 2 secondes). L'outil prend en compte les réponses de limitation de débit de Discord. Utilisez-le de manière responsable.
 
 ---
 
-## ⚖️ Disclaimer
+## 📜 Licence
 
-This tool is for authorized security testing and educational purposes only. The authors are not responsible for any misuse or damage caused by this program. Always ensure you have explicit permission before testing webhooks you do not own.
+Licence MIT — Libre d'utilisation, de modification et de distribution.
+
+---
+
+## ⚖️ Avertissement (Disclaimer)
+
+Cet outil est destiné uniquement à des fins éducatives et de tests de sécurité autorisés. Les auteurs ne sont pas responsables de toute mauvaise utilisation ou de tout dommage causé par ce programme. Assurez-vous toujours d'avoir l'autorisation explicite avant de tester des webhooks qui ne vous appartiennent pas.
