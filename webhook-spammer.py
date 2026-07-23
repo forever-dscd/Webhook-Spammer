@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-WEBHOOK SPAMMER v1.0 — Discord Webhook Spammer By Forever™
-"""
-
 import os, sys, re, time, requests
 from datetime import datetime
 
